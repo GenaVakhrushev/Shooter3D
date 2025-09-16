@@ -1,5 +1,5 @@
-﻿using Shooter.Player;
-using Shooter.Settings;
+﻿using Shooter.GameManagement;
+using Shooter.Player;
 using UnityEngine;
 using Zenject;
 

@@ -1,5 +1,6 @@
-﻿using Shooter.Player;
-using Shooter.Settings;
+﻿using Shooter.GameManagement;
+using Shooter.Items.Core;
+using Shooter.Player;
 using UnityEngine;
 using Zenject;
 
@@ -11,9 +12,12 @@ namespace Shooter.Installers
 
         public override void InstallBindings()
         {
+            var playerModel = (PlayerModel)configSO.PlayerModel.Clone();
+            playerModel.ItemModel = configSO.PlayerItem != null ? (ItemModel)configSO.PlayerItem.ItemModel.Clone() : null;
+            
             var gameConfig = new GameConfig
             {
-                PlayerModel = (PlayerModel)configSO.gameConfig.PlayerModel.Clone(),
+                PlayerModel = playerModel,
             };
             
             Container.BindInstance(gameConfig);

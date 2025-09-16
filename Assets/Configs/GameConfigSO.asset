@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2facf24d0a3a47da8b3e74e4687d27ba, type: 3}
   m_Name: GameConfigSO
   m_EditorClassIdentifier: 
-  gameConfig:
-    PlayerModel:
-      MoveSpeed: 5
-      RotationSpeed: 360
-      HPModel:
-        CurrentHP: 10
-        MaxHP: 10
+  PlayerModel:
+    MoveSpeed: 5
+    RotationSpeed: 360
+    HPModel:
+      CurrentHP: 10
+      MaxHP: 10
+  PlayerItem: {fileID: 11400000, guid: f7f1cebbc6bf99d4bbbaf944f64b7ba9, type: 2}

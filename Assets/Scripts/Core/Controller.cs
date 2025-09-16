@@ -15,11 +15,13 @@ namespace Shooter.Core
         public void SetModel(TModel model)
         {
             Model = model;
+            OnModelChanged();
         }
         
         public void SetView(TView view)
         {
             View = view;
+            OnViewChanged();
         }
         
         public void SetModel(object model)
@@ -41,5 +43,8 @@ namespace Shooter.Core
             
             SetView(tView);
         }
+
+        protected virtual void OnModelChanged(){}
+        protected virtual void OnViewChanged(){}
     }
 }

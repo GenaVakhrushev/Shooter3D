@@ -1,6 +1,7 @@
 ﻿using System;
 using Shooter.Core;
 using Shooter.HP;
+using Shooter.Items.Core;
 
 namespace Shooter.Player
 {
@@ -10,7 +11,14 @@ namespace Shooter.Player
         public float MoveSpeed;
         public float RotationSpeed;
         public HPModel HPModel;
+        public ItemModel ItemModel;
 
-        public object Clone() => new PlayerModel { MoveSpeed = MoveSpeed, RotationSpeed = RotationSpeed, HPModel = (HPModel)HPModel.Clone() };
+        public object Clone() => new PlayerModel
+        {
+            MoveSpeed = MoveSpeed, 
+            RotationSpeed = RotationSpeed,
+            HPModel = (HPModel)HPModel?.Clone(),
+            ItemModel = (ItemModel)ItemModel?.Clone(),
+        };
     }
 }
