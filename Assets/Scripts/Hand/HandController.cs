@@ -1,8 +1,6 @@
-﻿using System;
-using Shooter.Core;
+﻿using Shooter.Core;
 using Shooter.Items.Core;
 using Shooter.Services;
-using Zenject;
 
 namespace Shooter.Hand
 {

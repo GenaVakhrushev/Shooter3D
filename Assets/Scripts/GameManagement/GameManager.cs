@@ -30,6 +30,8 @@ namespace Shooter.GameManagement
             inputActions.Enable();
 
             StartSpawn();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private async void StartSpawn()
