@@ -1,10 +1,13 @@
-﻿using Shooter.Core;
+﻿using System;
+using Shooter.Core;
 using UnityEngine;
 
 namespace Shooter.HP
 {
     public class HPController : Controller<HPModel, HPView>
     {
+        public event Action LostHP;
+        
         protected override void OnViewChanged()
         {
             UpdateView();
@@ -27,7 +30,13 @@ namespace Shooter.HP
 
         private void SetHP(float value)
         {
-            Model.CurrentHP = Mathf.Clamp(value, 0, Model.MaxHP);
+            var hp = Mathf.Clamp(value, 0, Model.MaxHP);
+            Model.CurrentHP = hp;
+
+            if (hp == 0)
+            {
+                LostHP?.Invoke();
+            }
 
             UpdateView();
         }

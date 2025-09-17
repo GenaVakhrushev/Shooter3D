@@ -1,4 +1,6 @@
 ﻿using Shooter.GameManagement;
+using Shooter.Signals;
+using Shooter.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +12,13 @@ namespace Shooter.Installers
         
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
+            
+            foreach (var signalType in typeof(ISignal).GetInheritors())
+            {
+                Container.DeclareSignal(signalType);
+            }
+            
             Container.Bind<GameManager>().AsSingle().NonLazy();
         }
 

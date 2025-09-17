@@ -44,6 +44,11 @@ namespace Shooter.Player
             View.Rotate(lookDeltaScreenNormalized * Model.RotationSpeed);
         }
 
+        public void AddSkillPoint()
+        {
+            Model.StatsModel.AvailablePoints++;
+        }
+
         protected override void OnModelChanged()
         {
             handController.TakeItem(Model.ItemModel);

@@ -1,14 +1,18 @@
 ﻿using System;
 using Shooter.Core;
 using Shooter.Damage;
+using Shooter.Factories;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace Shooter.Enemies.Core
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class EnemyView : View, IDamageable
     {
+        [Inject] private EnemiesFactory enemiesFactory;
+        
         public string EnemyName { get; private set; }
         
         private NavMeshAgent agent;
@@ -67,6 +71,11 @@ namespace Shooter.Enemies.Core
         public void SetEnemyName(string enemyName)
         {
             EnemyName = enemyName;
+        }
+
+        public void Die()
+        {
+            enemiesFactory.ReturnView(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Shooter.Core;
+﻿using System;
+using Shooter.Core;
 using Shooter.HP;
 
 namespace Shooter.Enemies.Core
@@ -8,7 +9,21 @@ namespace Shooter.Enemies.Core
         where TEnemyView : EnemyView
     {
         private readonly HPController hpController = new();
-        
+
+        public event Action EnemyDied;
+
+        public EnemyController()
+        {
+            hpController.LostHP += HpControllerOnLostHP;
+        }
+
+        private void HpControllerOnLostHP()
+        {
+            View.Die();
+            
+            EnemyDied?.Invoke();
+        }
+
         protected override void OnBeforeViewChanged()
         {
             if (View == null)
@@ -25,14 +40,15 @@ namespace Shooter.Enemies.Core
             {
                 return;
             }
-            
+
+            View.UpdateToModel(Model);
             View.DamageTaken += ViewOnDamageTaken;
             hpController.SetView(View.GetComponentInChildren<HPView>());
         }
 
         protected override void OnModelChanged()
         {
-            hpController.SetModel(Model.HPModel);
+            hpController.SetModel(Model?.HPModel);
         }
 
         private void ViewOnDamageTaken(float damage)

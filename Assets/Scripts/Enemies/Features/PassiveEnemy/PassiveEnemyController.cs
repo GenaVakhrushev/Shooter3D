@@ -41,12 +41,5 @@ namespace Shooter.Enemies.Features.PassiveEnemy
 
             lastPositionChangeTime = Time.time;
         }
-
-        protected override void OnViewChanged()
-        {
-            base.OnViewChanged();
-            
-            View.UpdateToModel(Model);
-        }
     }
 }

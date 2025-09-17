@@ -39,6 +39,8 @@ namespace Shooter.Services
                     tickableManager.Add(tickable);
                 }
                 
+                ControllerCreated(controller);
+                
                 return controller;
             }
 
@@ -55,5 +57,7 @@ namespace Shooter.Services
                 controller.SetModel(null);
             }
         }
+        
+        protected virtual void ControllerCreated(TController controller){}
     }
 }

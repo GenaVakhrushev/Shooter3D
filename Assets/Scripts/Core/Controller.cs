@@ -3,7 +3,7 @@
 namespace Shooter.Core
 {
     public abstract class Controller<TModel, TView> : IController 
-        where TModel : IModel 
+        where TModel : class, IModel 
         where TView : View
     {
         public TModel Model { get; private set; }
@@ -28,6 +28,12 @@ namespace Shooter.Core
         
         public void SetModel(object model)
         {
+            if (model == null)
+            {
+                SetModel(null);
+                return;
+            }
+            
             if (model is not TModel tModel)
             {
                 throw new ArgumentException("Wrong model type");
@@ -38,6 +44,12 @@ namespace Shooter.Core
 
         public void SetView(object view)
         {
+            if (view == null)
+            {
+                SetView(null);
+                return;
+            }
+            
             if (view is not TView tView)
             {
                 throw new ArgumentException("Wrong view type");

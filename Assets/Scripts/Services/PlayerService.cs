@@ -13,6 +13,8 @@ namespace Shooter.Services
         private readonly PlayerView playerPrefab;
         private readonly Transform spawnPoint;
 
+        public PlayerController Controller => playerController;
+
         public PlayerService(DiContainer container, TickableManager tickableManager, GameConfig gameConfig, PlayerView playerPrefab, Transform spawnPoint)
         {
             this.container = container;
