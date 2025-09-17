@@ -7,9 +7,9 @@ namespace Shooter.Factories
     {
         public ItemsFactory(ItemsDatabase itemsDatabase)
         {
-            foreach (var itemConfig in itemsDatabase.ItemConfigs)
+            foreach (var itemConfig in itemsDatabase.Configs)
             {
-                AddViewPrefab(itemConfig.ItemModel.Name, itemConfig.ItemView);
+                AddViewPrefab(itemConfig.ItemName, itemConfig.ItemView);
             }
         }
 
@@ -17,7 +17,7 @@ namespace Shooter.Factories
         {
             var itemView = (ItemView)GetView(itemModel.Name);
             
-            itemView.ItemName = itemModel.Name;
+            itemView.SetItemName(itemModel.Name);
             
             return itemView;
         }

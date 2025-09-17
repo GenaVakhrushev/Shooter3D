@@ -1,26 +1,26 @@
 ﻿using System.Linq;
 using Shooter.Databases;
-using Shooter.Items.Core;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Editor.Databases
 {
-    [CustomEditor(typeof(ItemsDatabase))]
-    public class ItemsDatabaseEditor : UnityEditor.Editor
+    public abstract class DatabaseEditor<T> : UnityEditor.Editor where T : ScriptableObject
     {
         public override void OnInspectorGUI()
         {
-            if (GUILayout.Button("Find items"))
+            var configName = typeof(T).Name;
+            
+            if (GUILayout.Button($"Find {configName}s"))
             {
-                var guids = AssetDatabase.FindAssets($"t:{nameof(ItemConfig)}");
+                var guids = AssetDatabase.FindAssets($"t:{configName}");
                 var configs = guids
                     .Select(AssetDatabase.GUIDToAssetPath)
-                    .Select(AssetDatabase.LoadAssetAtPath<ItemConfig>)
+                    .Select(AssetDatabase.LoadAssetAtPath<T>)
                     .ToArray();
 
-                var itemsDatabase = (ItemsDatabase)target;
-                var configsProperty = serializedObject.FindProperty(nameof(itemsDatabase.ItemConfigs));
+                var database = (Database<T>)target;
+                var configsProperty = serializedObject.FindProperty(nameof(database.Configs));
 
                 configsProperty.arraySize = configs.Length;
                 for (var i = 0; i < configs.Length; i++)

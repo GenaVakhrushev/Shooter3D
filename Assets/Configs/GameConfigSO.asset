@@ -18,4 +18,9 @@ MonoBehaviour:
     HPModel:
       CurrentHP: 10
       MaxHP: 10
-  PlayerItem: {fileID: 11400000, guid: f7f1cebbc6bf99d4bbbaf944f64b7ba9, type: 2}
+  PlayerItemConfig: {fileID: 11400000, guid: e503734c2644b864ca2bb8aaf41c8629, type: 2}
+  EnemiesSpawnParameters:
+    StartSpawnCount: 10
+    SpawnSecondsInterval: 7
+  EnemyConfigs:
+  - {fileID: 11400000, guid: 3104d17cabc003c4cb975907c67e5a18, type: 2}

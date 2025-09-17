@@ -13,11 +13,13 @@ namespace Shooter.Installers
         public override void InstallBindings()
         {
             var playerModel = (PlayerModel)configSO.PlayerModel.Clone();
-            playerModel.ItemModel = configSO.PlayerItem != null ? (ItemModel)configSO.PlayerItem.ItemModel.Clone() : null;
+            playerModel.ItemModel = configSO.PlayerItemConfig != null ? configSO.PlayerItemConfig.CreateModel() : null;
             
             var gameConfig = new GameConfig
             {
                 PlayerModel = playerModel,
+                EnemiesSpawnParameters = configSO.EnemiesSpawnParameters,
+                EnemyConfigs = configSO.EnemyConfigs,
             };
             
             Container.BindInstance(gameConfig);

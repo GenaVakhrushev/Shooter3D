@@ -1,4 +1,6 @@
-﻿using Shooter.Items.Core;
+﻿using Shooter.Enemies.Core;
+using Shooter.Enemies.Spawn;
+using Shooter.Items.Core;
 using Shooter.Player;
 using UnityEngine;
 
@@ -8,6 +10,8 @@ namespace Shooter.GameManagement
     public class GameConfigSO : ScriptableObject
     {
         public PlayerModel PlayerModel;
-        public ItemConfig PlayerItem;
+        public ItemConfig PlayerItemConfig;
+        public SpawnParameters EnemiesSpawnParameters;
+        public EnemyConfig[] EnemyConfigs;
     }
 }
