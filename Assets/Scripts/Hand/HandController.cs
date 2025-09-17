@@ -1,12 +1,21 @@
 ﻿using System;
 using Shooter.Core;
 using Shooter.Items.Core;
+using Shooter.Services;
+using Zenject;
 
 namespace Shooter.Hand
 {
     public class HandController : Controller<HandModel, HandView>
     {
+        private readonly ItemsService itemsService;
+        
         private IItemController itemController;
+
+        public HandController(ItemsService itemsService)
+        {
+            this.itemsService = itemsService;
+        }
 
         public void TakeItem(ItemModel itemModel)
         {
@@ -14,7 +23,7 @@ namespace Shooter.Hand
 
             if (itemModel != null)
             {
-                itemController = (IItemController)Activator.CreateInstance(itemModel.GetControllerType());
+                itemController = itemsService.GetController(itemModel.GetControllerType());
                 itemController.SetModel(itemModel);
                 
                 if (View != null)

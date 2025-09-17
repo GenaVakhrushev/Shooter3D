@@ -1,12 +1,11 @@
-﻿using Shooter.Core;
-using Shooter.Enemies.Core;
+﻿using Shooter.Enemies.Core;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
 namespace Shooter.Enemies.Features.PassiveEnemy
 {
-    public class PassiveEnemyController : Controller<PassiveEnemyModel, PassiveEnemyView>, IEnemyController, ITickable
+    public class PassiveEnemyController : EnemyController<PassiveEnemyModel, PassiveEnemyView>, ITickable
     {
         private float lastPositionChangeTime;
         
@@ -45,6 +44,8 @@ namespace Shooter.Enemies.Features.PassiveEnemy
 
         protected override void OnViewChanged()
         {
+            base.OnViewChanged();
+            
             View.UpdateToModel(Model);
         }
     }

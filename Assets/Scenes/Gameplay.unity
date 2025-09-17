@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 31133524}
   - component: {fileID: 31133523}
   m_Layer: 0
-  m_Name: EnemiesServiceInstaller
+  m_Name: ControllerServicesInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1095,6 +1095,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 701958307}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &782758033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 782758035}
+  - component: {fileID: 782758034}
+  m_Layer: 0
+  m_Name: DamageCalculatorInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &782758034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782758033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751a48adf1ba422e82554ce6b0c1b736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &782758035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782758033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1036018698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &819359616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,6 +1390,7 @@ MonoBehaviour:
   - {fileID: 1132625753}
   - {fileID: 1061597594}
   - {fileID: 1505232363}
+  - {fileID: 782758034}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1382,6 +1427,7 @@ Transform:
   - {fileID: 1132625754}
   - {fileID: 1061597595}
   - {fileID: 1505232364}
+  - {fileID: 782758035}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1036018699

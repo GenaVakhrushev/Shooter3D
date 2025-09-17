@@ -1,5 +1,7 @@
 ﻿using Shooter.Core;
 using Shooter.Hand;
+using Shooter.HP;
+using Shooter.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -11,13 +13,16 @@ namespace Shooter.Player
         private readonly ShooterInputActions inputActions;
         
         private readonly HandController handController;
+        private readonly HPController hpController;
 
-        public PlayerController(ShooterInputActions inputActions)
+        public PlayerController(ItemsService itemsService, ShooterInputActions inputActions)
         {
             this.inputActions = inputActions;
 
-            handController = new HandController();
+            handController = new HandController(itemsService);
             handController.SetModel(new HandModel());
+
+            hpController = new HPController();
             
             inputActions.Player.UseItem.started += UseItemOnStarted;
             inputActions.Player.UseItem.canceled += UseItemOnCanceled;
@@ -42,6 +47,17 @@ namespace Shooter.Player
         protected override void OnModelChanged()
         {
             handController.TakeItem(Model.ItemModel);
+            hpController.SetModel(Model.HPModel);
+        }
+
+        protected override void OnBeforeViewChanged()
+        {
+            if (View == null)
+            {
+                return;
+            }
+            
+            View.DamageTaken -= ViewOnDamageTaken;
         }
 
         protected override void OnViewChanged()
@@ -52,6 +68,14 @@ namespace Shooter.Player
             }
             
             handController.SetView(View.GetComponentInChildren<HandView>());
+            hpController.SetView(View.GetComponentInChildren<HPView>());
+
+            View.DamageTaken += ViewOnDamageTaken;
+        }
+
+        private void ViewOnDamageTaken(float damage)
+        {
+            hpController.RemoveHP(damage);
         }
 
         private void UseItemOnStarted(InputAction.CallbackContext context)

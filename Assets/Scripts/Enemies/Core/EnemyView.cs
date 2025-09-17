@@ -1,11 +1,13 @@
-﻿using Shooter.Core;
+﻿using System;
+using Shooter.Core;
+using Shooter.Damage;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Shooter.Enemies.Core
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public abstract class EnemyView : View
+    public abstract class EnemyView : View, IDamageable
     {
         public string EnemyName { get; private set; }
         
@@ -15,6 +17,8 @@ namespace Shooter.Enemies.Core
 
         private const float PATH_CALCULATE_DELAY = 0.1f;
         private const float DISTANCE_DELTA = 0.1f;
+
+        public event Action<float> DamageTaken;
 
         private void Awake()
         {
@@ -31,6 +35,11 @@ namespace Shooter.Enemies.Core
 
                 agent.SetDestination(targetTransform.position);
             }
+        }
+
+        public void TakeDamage(float damage)
+        {
+            DamageTaken?.Invoke(damage);
         }
 
         public void UpdateToModel(EnemyModel enemyModel)

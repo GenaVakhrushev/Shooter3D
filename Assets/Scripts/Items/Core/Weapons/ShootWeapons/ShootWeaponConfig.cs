@@ -2,6 +2,6 @@
 {
     public abstract class ShootWeaponConfig : WeaponConfig
     {
-        public float HitDistance;
+        
     }
 }
