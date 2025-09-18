@@ -1,6 +1,7 @@
 ﻿using Shooter.GameManagement;
-using Shooter.Items.Core;
+using Shooter.HP;
 using Shooter.Player;
+using Shooter.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -12,8 +13,15 @@ namespace Shooter.Installers
 
         public override void InstallBindings()
         {
-            var playerModel = (PlayerModel)configSO.PlayerModel.Clone();
-            playerModel.ItemModel = configSO.PlayerItemConfig != null ? configSO.PlayerItemConfig.CreateModel() : null;
+            var playerModel = new PlayerModel
+            {
+                MoveSpeed = configSO.PlayerMoveSpeed,
+                RotationSpeed = configSO.PlayerRotationSpeed,
+                HPModel = (HPModel)configSO.PlayerHPModel.Clone(),
+                AvailableSkillPoints = configSO.PlayerAvailableSkillPoints,
+                StatModels = configSO.StatModels?.CopyModelsDictionary(),
+                ItemModel = configSO.PlayerItemConfig != null ? configSO.PlayerItemConfig.CreateModel() : null,
+            };
             
             var gameConfig = new GameConfig
             {

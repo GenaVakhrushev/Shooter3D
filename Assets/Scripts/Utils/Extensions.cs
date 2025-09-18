@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Shooter.Core;
 
 namespace Shooter.Utils
 {
@@ -47,5 +48,9 @@ namespace Shooter.Utils
                 }
             }
         }
+
+        public static Dictionary<TKey, TModel> CopyModelsDictionary<TKey, TModel>(this Dictionary<TKey, TModel> source)
+            where TModel : IModel =>
+            new(source.Select(pair => new KeyValuePair<TKey, TModel>(pair.Key, (TModel)pair.Value.Clone())));
     }
 }

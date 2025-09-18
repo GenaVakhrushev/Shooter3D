@@ -46,7 +46,7 @@ namespace Shooter.Player
 
         public void AddSkillPoint()
         {
-            Model.StatsModel.AvailablePoints++;
+            Model.AvailableSkillPoints++;
         }
 
         protected override void OnModelChanged()
