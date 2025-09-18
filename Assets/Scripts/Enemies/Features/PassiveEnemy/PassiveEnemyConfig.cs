@@ -15,7 +15,7 @@ namespace Shooter.Enemies.Features.PassiveEnemy
             Name = Name,
             MoveSpeed = MoveSpeed,
             RotationSpeed = RotationSpeed,
-            HPModel = new HPModel{CurrentHP = Random.Range(1, MaxHP), MaxHP = MaxHP},
+            HPModel = new HPModel{CurrentHP = Random.Range(1, MaxHP), BaseMaxHP = MaxHP, MaxHP = MaxHP},
             NextPositionRange = NextPositionRange,
             NextPositionDelay = NextPositionDelay,
         };

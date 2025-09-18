@@ -7,11 +7,11 @@ namespace Shooter.Player.Stats
     [Serializable]
     public class StatModel : IModel
     {
-        [SerializeField, Min(1)] private int currentLevel = 1;
+        [SerializeField, Min(0)] private int currentLevel;
         [SerializeField, Min(1)] private int maxLevel = 1;
         [SerializeField, Min(1)] private float amplifyPercentPerLevel = 5;
         
-        public event Action ModelChanged;
+        public event Action CurrentLevelChanged;
         
         public int CurrentLevel
         {
@@ -19,29 +19,12 @@ namespace Shooter.Player.Stats
             set
             {
                 currentLevel = value;
-                ModelChanged?.Invoke();
+                CurrentLevelChanged?.Invoke();
             }
         }
 
-        public int MaxLevel
-        {
-            get => maxLevel;
-            set
-            {
-                maxLevel = value;
-                ModelChanged?.Invoke();
-            }
-        }
-
-        public float AmplifyPercentPerLevel
-        {
-            get => amplifyPercentPerLevel;
-            set
-            {
-                amplifyPercentPerLevel = value;
-                ModelChanged?.Invoke();
-            }
-        }
+        public int MaxLevel => maxLevel;
+        public float AmplifyPercentPerLevel => amplifyPercentPerLevel;
 
         public object Clone() => new StatModel
         {

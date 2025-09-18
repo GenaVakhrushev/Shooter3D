@@ -27,7 +27,7 @@ namespace Shooter.Player.Stats
             StatName = statName;
             StatModel = statModel;
 
-            StatModel.ModelChanged += UpdatePointsCount;
+            StatModel.CurrentLevelChanged += UpdatePointsCount;
 
             label.text = StatName.ToString();
             UpdatePointsCount();
@@ -35,7 +35,7 @@ namespace Shooter.Player.Stats
 
         public void Unbind()
         {
-            StatModel.ModelChanged -= UpdatePointsCount;
+            StatModel.CurrentLevelChanged -= UpdatePointsCount;
             StatModel = null;
         }
 

@@ -1,7 +1,6 @@
 ﻿using AYellowpaper.SerializedCollections;
 using Shooter.Enemies.Core;
 using Shooter.Enemies.Spawn;
-using Shooter.HP;
 using Shooter.Items.Core;
 using Shooter.Player.Stats;
 using UnityEngine;
@@ -14,7 +13,8 @@ namespace Shooter.GameManagement
         [Header("Player settings")]
         public float PlayerMoveSpeed;
         public float PlayerRotationSpeed;
-        public HPModel PlayerHPModel;
+        public float PlayerStartHP;
+        public float PlayerBaseMaxHP;
         public int PlayerAvailableSkillPoints;
         public SerializedDictionary<StatName, StatModel> StatModels;
         public ItemConfig PlayerItemConfig;

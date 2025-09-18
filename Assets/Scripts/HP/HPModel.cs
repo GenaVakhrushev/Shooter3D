@@ -7,8 +7,9 @@ namespace Shooter.HP
     public class HPModel : IModel
     {
         public float CurrentHP;
+        public float BaseMaxHP;
         public float MaxHP;
-
-        public object Clone() => new HPModel { CurrentHP = CurrentHP, MaxHP = MaxHP };
+        
+        public object Clone() => new HPModel { CurrentHP = CurrentHP, BaseMaxHP = BaseMaxHP, MaxHP = MaxHP };
     }
 }

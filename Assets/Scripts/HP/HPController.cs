@@ -28,6 +28,18 @@ namespace Shooter.HP
             SetHP(Model.CurrentHP - amount);
         }
 
+        public void SetMaxHP(float value)
+        {
+            value = Mathf.Max(1, value);
+            
+            var delta = value - Model.MaxHP;
+
+            Model.MaxHP = value;
+            Model.CurrentHP = Mathf.Max(1, Model.CurrentHP + delta);
+            
+            UpdateView();
+        }
+
         private void SetHP(float value)
         {
             var hp = Mathf.Clamp(value, 0, Model.MaxHP);

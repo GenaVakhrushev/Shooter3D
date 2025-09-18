@@ -26,7 +26,7 @@ namespace Shooter.Player.Stats
             
             foreach (var (statName, statModel) in tempModel.StatModels)
             {
-                statModel.ModelChanged += StatModelOnModelChanged;
+                statModel.CurrentLevelChanged += StatModelOnCurrentLevelChanged;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Shooter.Player.Stats
             AvailableSkillPointsChanged?.Invoke(tempModel.AvailableSkillPoints);
         }
 
-        private void StatModelOnModelChanged()
+        private void StatModelOnCurrentLevelChanged()
         {
             StatChanged?.Invoke();
         }

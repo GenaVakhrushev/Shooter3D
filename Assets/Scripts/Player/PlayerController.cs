@@ -1,14 +1,17 @@
 ﻿using Shooter.Core;
+using Shooter.Damage;
 using Shooter.Hand;
 using Shooter.HP;
+using Shooter.Player.Stats;
 using Shooter.Services;
+using Shooter.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 namespace Shooter.Player
 {
-    public class PlayerController : Controller<PlayerModel, PlayerView>, ITickable
+    public class PlayerController : Controller<PlayerModel, PlayerView>, ITickable, IDamageModifierHolder
     {
         private readonly ShooterInputActions inputActions;
         
@@ -19,7 +22,7 @@ namespace Shooter.Player
         {
             this.inputActions = inputActions;
 
-            handController = new HandController(itemsService);
+            handController = new HandController(itemsService, this);
             handController.SetModel(new HandModel());
 
             hpController = new HPController();
@@ -36,12 +39,21 @@ namespace Shooter.Player
             }
 
             var moveDirection = inputActions.Player.Move.ReadValue<Vector2>();
-            View.SetMoveVelocity(moveDirection * Model.MoveSpeed);
+            var speedStat = Model.StatModels[StatName.Speed];
+            var moveSpeed = speedStat?.ModifyValue(Model.MoveSpeed) ?? Model.MoveSpeed;
+            
+            View.SetMoveVelocity(moveDirection * moveSpeed);
 
             var lookDelta = inputActions.Player.Look.ReadValue<Vector2>();
             var lookDeltaScreenNormalized = new Vector2(lookDelta.x / Screen.width, lookDelta.y / Screen.height);
             
             View.Rotate(lookDeltaScreenNormalized * Model.RotationSpeed);
+        }
+        
+        public float ModifyDamage(float damage)
+        {
+            var damageStatModel = Model.StatModels[StatName.Damage];
+            return damageStatModel?.ModifyValue(damage) ?? damage;
         }
 
         public void AddSkillPoint()
@@ -49,10 +61,30 @@ namespace Shooter.Player
             Model.AvailableSkillPoints++;
         }
 
+        protected override void OnBeforeModelChanged()
+        {
+            base.OnBeforeModelChanged();
+            
+            if (Model != null)
+            {
+                Model.StatModels[StatName.Heath].CurrentLevelChanged -= HealthStatOnCurrentLevelChanged;
+            }
+        }
+
         protected override void OnModelChanged()
         {
-            handController.TakeItem(Model.ItemModel);
-            hpController.SetModel(Model.HPModel);
+            handController.TakeItem(Model?.ItemModel);
+            hpController.SetModel(Model?.HPModel);
+
+            if (Model != null)
+            {
+                Model.StatModels[StatName.Heath].CurrentLevelChanged += HealthStatOnCurrentLevelChanged;
+            }
+        }
+
+        private void HealthStatOnCurrentLevelChanged()
+        {
+            hpController.SetMaxHP(Model.StatModels[StatName.Heath].ModifyValue(Model.HPModel.BaseMaxHP));
         }
 
         protected override void OnBeforeViewChanged()

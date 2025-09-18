@@ -1,6 +1,6 @@
 ﻿namespace Shooter.Damage
 {
-    public interface IDamageDealer
+    public interface IDamageSource
     {
         public float GetDamage();
     }

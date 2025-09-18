@@ -7,12 +7,14 @@ namespace Shooter.Hand
     public class HandController : Controller<HandModel, HandView>
     {
         private readonly ItemsService itemsService;
-        
+        private readonly object user;
+
         private IItemController itemController;
 
-        public HandController(ItemsService itemsService)
+        public HandController(ItemsService itemsService, object user)
         {
             this.itemsService = itemsService;
+            this.user = user;
         }
 
         public void TakeItem(ItemModel itemModel)
@@ -41,8 +43,8 @@ namespace Shooter.Hand
             TakeItem(null);
         }
 
-        public void StartUseItem() => itemController?.StartUseItem();
+        public void StartUseItem() => itemController?.StartUseItem(user);
 
-        public void StopUseItem() => itemController?.StopUseItem();
+        public void StopUseItem() => itemController?.StopUseItem(user);
     }
 }

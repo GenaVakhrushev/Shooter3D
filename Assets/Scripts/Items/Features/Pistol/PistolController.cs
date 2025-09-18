@@ -6,20 +6,20 @@ using Zenject;
 
 namespace Shooter.Items.Features.Pistol
 {
-    public class PistolController : Controller<PistolModel, PistolView>, IItemController, IDamageDealer
+    public class PistolController : Controller<PistolModel, PistolView>, IItemController, IDamageSource
     {
         [Inject] private DamageCalculator damageCalculator;
         
         private readonly Camera mainCamera = Camera.main;
 
-        public void StartUseItem()
+        public void StartUseItem(object user)
         {
             var mainCameraTransform = mainCamera.transform;
             var ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward);
             
             if (Physics.Raycast(ray, out var hit) && hit.transform.TryGetComponent(out IDamageable damageable))
             {
-                var damage = damageCalculator.CalculateDamage(this, damageable);
+                var damage = damageCalculator.CalculateDamage(user, this, damageable);
 
                 if (damage > 0)
                 {
@@ -28,7 +28,7 @@ namespace Shooter.Items.Features.Pistol
             }
         }
 
-        public void StopUseItem()
+        public void StopUseItem(object user)
         {
             
         }

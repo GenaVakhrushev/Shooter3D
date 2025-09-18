@@ -17,7 +17,11 @@ namespace Shooter.Installers
             {
                 MoveSpeed = configSO.PlayerMoveSpeed,
                 RotationSpeed = configSO.PlayerRotationSpeed,
-                HPModel = (HPModel)configSO.PlayerHPModel.Clone(),
+                HPModel = new HPModel
+                {
+                    CurrentHP = configSO.PlayerStartHP, BaseMaxHP = configSO.PlayerBaseMaxHP,
+                    MaxHP = configSO.PlayerBaseMaxHP
+                },
                 AvailableSkillPoints = configSO.PlayerAvailableSkillPoints,
                 StatModels = configSO.StatModels?.CopyModelsDictionary(),
                 ItemModel = configSO.PlayerItemConfig != null ? configSO.PlayerItemConfig.CreateModel() : null,

@@ -2,17 +2,24 @@
 {
     public class DamageCalculator
     {
-        public float CalculateDamage(IDamageDealer dealer, IDamageable damageable)
+        public float CalculateDamage(object damager, IDamageSource source, IDamageable damageable)
         {
-            if (CanDealDamage(dealer, damageable))
+            if (CanDealDamage(damager, damageable))
             {
-                return dealer.GetDamage();
+                var damage = source.GetDamage();
+
+                if (damager is IDamageModifierHolder damageModifierHolder)
+                {
+                    damage = damageModifierHolder.ModifyDamage(damage);
+                }
+                
+                return damage;
             }
 
             return 0;
         }
 
-        private bool CanDealDamage(IDamageDealer dealer, IDamageable damageable)
+        private bool CanDealDamage(object damager, IDamageable damageable)
         {
             return true;
         }

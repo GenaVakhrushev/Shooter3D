@@ -14,26 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerMoveSpeed: 5
   PlayerRotationSpeed: 360
-  PlayerHPModel:
-    CurrentHP: 10
-    MaxHP: 10
+  PlayerStartHP: 7
+  PlayerBaseMaxHP: 10
   PlayerAvailableSkillPoints: 0
   StatModels:
     _serializedList:
     - Key: 0
       Value:
-        currentLevel: 1
-        maxLevel: 5
+        currentLevel: 0
+        maxLevel: 40
         amplifyPercentPerLevel: 5
     - Key: 1
       Value:
-        currentLevel: 1
-        maxLevel: 4
+        currentLevel: 0
+        maxLevel: 40
         amplifyPercentPerLevel: 5
     - Key: 2
       Value:
-        currentLevel: 1
-        maxLevel: 3
+        currentLevel: 0
+        maxLevel: 10
         amplifyPercentPerLevel: 10
   PlayerItemConfig: {fileID: 11400000, guid: e503734c2644b864ca2bb8aaf41c8629, type: 2}
   EnemiesSpawnParameters:

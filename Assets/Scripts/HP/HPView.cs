@@ -24,7 +24,7 @@ namespace Shooter.HP
 
             if (hpText != null)
             {
-                hpText.text = $"{hp} / {maxHP}";
+                hpText.text = $"{hp:0.0} / {maxHP:0.0}";
             }
         }
     }
