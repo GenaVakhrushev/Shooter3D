@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Shooter.Core;
 using Shooter.Player.Stats;
+using UnityEngine.Localization.Settings;
 
 namespace Shooter.Utils
 {
@@ -56,5 +57,17 @@ namespace Shooter.Utils
 
         public static float ModifyValue(this StatModel statModel, float value) =>
             value + value * statModel.CurrentLevel * statModel.AmplifyPercentPerLevel * 0.01f;
+
+        private const string STATS_TABLE_NAME = "StatsTable";
+
+        private static readonly Dictionary<StatName, string> LocalizationKeysForStats = new()
+        {
+            { StatName.Speed, "stats.Speed" },
+            { StatName.Heath, "stats.Health" },
+            { StatName.Damage, "stats.Damage" },
+        };
+        
+        public static string GetLocalizedString(this StatName statName) =>
+            LocalizationSettings.StringDatabase.GetLocalizedString(STATS_TABLE_NAME, LocalizationKeysForStats[statName]);
     }
 }

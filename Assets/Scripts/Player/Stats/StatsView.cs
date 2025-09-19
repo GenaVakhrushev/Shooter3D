@@ -15,6 +15,8 @@ namespace Shooter.Player.Stats
         private readonly HashSet<StatView> activeViews = new();
         private ObjectPool<StatView> statViews;
 
+        private ObjectPool<StatView> StatViews => statViews ??= new ObjectPool<StatView>(CreateStatView, ActionOnGetStatView, ActionOnReleaseStatView);
+
         private StatsViewModel statsViewModel;
 
         private void Awake()
@@ -34,7 +36,7 @@ namespace Shooter.Player.Stats
             
             foreach (var activeView in activeViews)
             {
-                statViews.Release(activeView);
+                StatViews.Release(activeView);
             }
             
             if (statsViewModel == null)
@@ -47,7 +49,7 @@ namespace Shooter.Player.Stats
             
             foreach (var (statName, statModel) in statsViewModel.GetStatModels())
             {
-                var statView = statViews.Get();
+                var statView = StatViews.Get();
 
                 statView.Bind(statName, statModel);
             }

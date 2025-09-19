@@ -1,7 +1,10 @@
 ﻿using System;
 using Shooter.Core;
+using Shooter.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
 namespace Shooter.Player.Stats
@@ -22,6 +25,22 @@ namespace Shooter.Player.Stats
             addButton.onClick.AddListener(() => PointAdded?.Invoke(StatName));
         }
 
+        private void OnEnable()
+        {
+            UpdateLabelText();
+            LocalizationSettings.SelectedLocaleChanged += LocalizationSettingsOnSelectedLocaleChanged;
+        }
+
+        private void OnDisable()
+        {
+            LocalizationSettings.SelectedLocaleChanged -= LocalizationSettingsOnSelectedLocaleChanged;
+        }
+
+        private void LocalizationSettingsOnSelectedLocaleChanged(Locale locale)
+        {
+            UpdateLabelText();
+        }
+
         public void Bind(StatName statName, StatModel statModel)
         {
             StatName = statName;
@@ -29,7 +48,7 @@ namespace Shooter.Player.Stats
 
             StatModel.CurrentLevelChanged += UpdatePointsCount;
 
-            label.text = StatName.ToString();
+            UpdateLabelText();
             UpdatePointsCount();
         }
 
@@ -47,6 +66,11 @@ namespace Shooter.Player.Stats
         public void DisableAdding()
         {
             addButton.interactable = false;
+        }
+
+        private void UpdateLabelText()
+        {
+            label.text = StatName.GetLocalizedString();
         }
 
         private void UpdatePointsCount()
