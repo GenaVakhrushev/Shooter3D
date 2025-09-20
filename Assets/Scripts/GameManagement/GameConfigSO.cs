@@ -1,8 +1,12 @@
-﻿using AYellowpaper.SerializedCollections;
+﻿using System.Linq;
+using AYellowpaper.SerializedCollections;
 using Shooter.Enemies.Core;
 using Shooter.Enemies.Spawn;
+using Shooter.HP;
 using Shooter.Items.Core;
+using Shooter.Player;
 using Shooter.Player.Stats;
+using Shooter.Utils;
 using UnityEngine;
 
 namespace Shooter.GameManagement
@@ -22,5 +26,31 @@ namespace Shooter.GameManagement
         [Header("Enemies settings")]
         public SpawnParameters EnemiesSpawnParameters;
         public EnemyConfig[] EnemyConfigs;
+
+        public GameConfig CreateGameConfig()
+        {
+            var playerModel = new PlayerModel
+            {
+                MoveSpeed = PlayerMoveSpeed,
+                RotationSpeed = PlayerRotationSpeed,
+                HPModel = new HPModel
+                {
+                    CurrentHP = PlayerStartHP, BaseMaxHP = PlayerBaseMaxHP,
+                    MaxHP = PlayerBaseMaxHP
+                },
+                AvailableSkillPoints = PlayerAvailableSkillPoints,
+                StatModels = StatModels?.CopyModelsDictionary(),
+                ItemModel = PlayerItemConfig != null ? PlayerItemConfig.CreateModel() : null,
+            };
+            
+            var gameConfig = new GameConfig
+            {
+                PlayerModel = playerModel,
+                EnemiesSpawnParameters = EnemiesSpawnParameters,
+                EnemyModels = EnemyConfigs.Select(config => config.CreateModel()).ToArray(),
+            };
+
+            return gameConfig;
+        }
     }
 }

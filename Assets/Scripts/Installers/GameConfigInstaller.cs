@@ -1,7 +1,5 @@
-﻿using Shooter.GameManagement;
-using Shooter.HP;
-using Shooter.Player;
-using Shooter.Utils;
+﻿using System;
+using Shooter.GameManagement;
 using UnityEngine;
 using Zenject;
 
@@ -9,32 +7,26 @@ namespace Shooter.Installers
 {
     public class GameConfigInstaller : MonoInstaller
     {
+        [SerializeField] private ConfigSource configSource;
         [SerializeField] private GameConfigSO configSO;
+        [SerializeField] private TextAsset configJson;
 
         public override void InstallBindings()
         {
-            var playerModel = new PlayerModel
+            var gameConfig = configSource switch
             {
-                MoveSpeed = configSO.PlayerMoveSpeed,
-                RotationSpeed = configSO.PlayerRotationSpeed,
-                HPModel = new HPModel
-                {
-                    CurrentHP = configSO.PlayerStartHP, BaseMaxHP = configSO.PlayerBaseMaxHP,
-                    MaxHP = configSO.PlayerBaseMaxHP
-                },
-                AvailableSkillPoints = configSO.PlayerAvailableSkillPoints,
-                StatModels = configSO.StatModels?.CopyModelsDictionary(),
-                ItemModel = configSO.PlayerItemConfig != null ? configSO.PlayerItemConfig.CreateModel() : null,
+                ConfigSource.ScriptableObject => configSO.CreateGameConfig(),
+                ConfigSource.Json => GameConfig.FromJson(configJson.text),
+                _ => throw new ArgumentOutOfRangeException()
             };
-            
-            var gameConfig = new GameConfig
-            {
-                PlayerModel = playerModel,
-                EnemiesSpawnParameters = configSO.EnemiesSpawnParameters,
-                EnemyConfigs = configSO.EnemyConfigs,
-            };
-            
+
             Container.BindInstance(gameConfig);
+        }
+
+        private enum ConfigSource
+        {
+            ScriptableObject = 0,
+            Json = 1,
         }
     }
 }

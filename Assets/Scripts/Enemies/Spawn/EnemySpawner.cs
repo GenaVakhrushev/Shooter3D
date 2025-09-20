@@ -16,9 +16,9 @@ namespace Shooter.Enemies.Spawn
             this.enemiesService = enemiesService;
         }
 
-        public IEnemyController SpawnEnemy(EnemyConfig enemyConfig)
+        public IEnemyController SpawnEnemy(EnemyModel enemyModel)
         {
-            var model = enemyConfig.CreateModel();
+            var model = (EnemyModel)enemyModel.Clone();
             var view = enemiesFactory.GetEnemyView(model);
             var controller = enemiesService.GetController(model.GetControllerType());
             

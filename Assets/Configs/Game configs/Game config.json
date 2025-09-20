@@ -1,0 +1,62 @@
+{
+  "$type": "Shooter.GameManagement.GameConfig, Shooter",
+  "PlayerModel": {
+    "$type": "Shooter.Player.PlayerModel, Shooter",
+    "MoveSpeed": 10.0,
+    "RotationSpeed": 360.0,
+    "HPModel": {
+      "$type": "Shooter.HP.HPModel, Shooter",
+      "CurrentHP": 15.0,
+      "BaseMaxHP": 20.0,
+      "MaxHP": 20.0
+    },
+    "StatModels": {
+      "$type": "System.Collections.Generic.Dictionary`2[[Shooter.Player.Stats.StatName, Shooter],[Shooter.Player.Stats.StatModel, Shooter]], mscorlib",
+      "Speed": {
+        "$type": "Shooter.Player.Stats.StatModel, Shooter",
+        "CurrentLevel": 5,
+        "MaxLevel": 40,
+        "AmplifyPercentPerLevel": 5.0
+      },
+      "Heath": {
+        "$type": "Shooter.Player.Stats.StatModel, Shooter",
+        "CurrentLevel": 10,
+        "MaxLevel": 40,
+        "AmplifyPercentPerLevel": 5.0
+      },
+      "Damage": {
+        "$type": "Shooter.Player.Stats.StatModel, Shooter",
+        "CurrentLevel": 3,
+        "MaxLevel": 10,
+        "AmplifyPercentPerLevel": 10.0
+      }
+    },
+    "ItemModel": {
+      "$type": "Shooter.Items.Features.Pistol.PistolModel, Shooter",
+      "Damage": 1.0,
+      "Name": "Pistol"
+    },
+    "AvailableSkillPoints": 5
+  },
+  "EnemiesSpawnParameters": {
+    "$type": "Shooter.Enemies.Spawn.SpawnParameters, Shooter",
+    "StartSpawnCount": 5,
+    "SpawnSecondsInterval": 10.0
+  },
+  "EnemyModels": [
+    {
+      "$type": "Shooter.Enemies.Features.PassiveEnemy.PassiveEnemyModel, Shooter",
+      "NextPositionRange": 5.0,
+      "NextPositionDelay": 10.0,
+      "Name": "Passive Enemy",
+      "MoveSpeed": 3.0,
+      "RotationSpeed": 360.0,
+      "HPModel": {
+        "$type": "Shooter.HP.HPModel, Shooter",
+        "CurrentHP": 4.393502,
+        "BaseMaxHP": 5.0,
+        "MaxHP": 5.0
+      }
+    }
+  ]
+}

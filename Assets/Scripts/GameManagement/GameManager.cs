@@ -58,9 +58,9 @@ namespace Shooter.GameManagement
         
         private void SpawnEnemy()
         {
-            enemySpawner.SpawnEnemy(GetRandomConfig());
+            enemySpawner.SpawnEnemy(GetRandomModel());
         }
         
-        private EnemyConfig GetRandomConfig() => gameConfig.EnemyConfigs[Random.Range(0, gameConfig.EnemyConfigs.Length)];
+        private EnemyModel GetRandomModel() => gameConfig.EnemyModels[Random.Range(0, gameConfig.EnemyModels.Length)];
     }
 }
