@@ -22,18 +22,18 @@ MonoBehaviour:
     - Key: 0
       Value:
         currentLevel: 0
-        maxLevel: 40
-        amplifyPercentPerLevel: 5
+        MaxLevel: 40
+        AmplifyPercentPerLevel: 5
     - Key: 1
       Value:
         currentLevel: 0
-        maxLevel: 40
-        amplifyPercentPerLevel: 5
+        MaxLevel: 40
+        AmplifyPercentPerLevel: 5
     - Key: 2
       Value:
         currentLevel: 0
-        maxLevel: 10
-        amplifyPercentPerLevel: 10
+        MaxLevel: 10
+        AmplifyPercentPerLevel: 10
   PlayerItemConfig: {fileID: 11400000, guid: e503734c2644b864ca2bb8aaf41c8629, type: 2}
   EnemiesSpawnParameters:
     StartSpawnCount: 10

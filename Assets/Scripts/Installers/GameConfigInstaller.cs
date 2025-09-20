@@ -1,5 +1,6 @@
 ﻿using System;
 using Shooter.GameManagement;
+using Shooter.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +17,7 @@ namespace Shooter.Installers
             var gameConfig = configSource switch
             {
                 ConfigSource.ScriptableObject => configSO.CreateGameConfig(),
-                ConfigSource.Json => GameConfig.FromJson(configJson.text),
+                ConfigSource.Json => Utilities.FromJson<GameConfig>(configJson.text),
                 _ => throw new ArgumentOutOfRangeException()
             };
 

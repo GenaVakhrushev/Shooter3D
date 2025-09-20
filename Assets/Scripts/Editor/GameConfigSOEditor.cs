@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Shooter.GameManagement;
+using Shooter.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ namespace Editor
                 {
                     var gameConfig = configSO.CreateGameConfig();
                     
-                    File.WriteAllText(path, gameConfig.ToJson());
+                    File.WriteAllText(path, Utilities.ToJson(gameConfig));
                 }
             }
         }
