@@ -45,12 +45,12 @@ namespace Shooter.HP
             var hp = Mathf.Clamp(value, 0, Model.MaxHP);
             Model.CurrentHP = hp;
 
+            UpdateView();
+            
             if (hp == 0)
             {
                 LostHP?.Invoke();
             }
-
-            UpdateView();
         }
 
         private void UpdateView()

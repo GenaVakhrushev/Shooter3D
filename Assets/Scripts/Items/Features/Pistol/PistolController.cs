@@ -1,38 +1,10 @@
-﻿using Shooter.Core;
-using Shooter.Damage;
-using Shooter.Items.Core;
+﻿using Shooter.Items.Core.Weapons.ShootWeapons;
 using UnityEngine;
-using Zenject;
 
 namespace Shooter.Items.Features.Pistol
 {
-    public class PistolController : Controller<PistolModel, PistolView>, IItemController, IDamageSource
+    public class PistolController : ShootWeaponController<PistolModel, PistolView>
     {
-        [Inject] private DamageCalculator damageCalculator;
-        
-        private readonly Camera mainCamera = Camera.main;
-
-        public void StartUseItem(object user)
-        {
-            var mainCameraTransform = mainCamera.transform;
-            var ray = new Ray(mainCameraTransform.position, mainCameraTransform.forward);
-            
-            if (Physics.Raycast(ray, out var hit) && hit.transform.TryGetComponent(out IDamageable damageable))
-            {
-                var damage = damageCalculator.CalculateDamage(user, this, damageable);
-
-                if (damage > 0)
-                {
-                    damageable.TakeDamage(damage);
-                }
-            }
-        }
-
-        public void StopUseItem(object user)
-        {
-            
-        }
-
-        public float GetDamage() => Model.Damage;
+        protected override Vector3 GetShootDirection() => mainCamera.transform.forward;
     }
 }

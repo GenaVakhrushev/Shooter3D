@@ -38,6 +38,8 @@ namespace Shooter.Enemies.Core
         {
             if (View == null)
             {
+                hpController.SetView(null);
+                
                 return;
             }
 
