@@ -27,6 +27,10 @@ MonoBehaviour:
     m_Key: statsScreen.Apply
     m_Metadata:
       m_Items: []
+  - m_Id: 1080828027351040
+    m_Key: gameUI.CursorHint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

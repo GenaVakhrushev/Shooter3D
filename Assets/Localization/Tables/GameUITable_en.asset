@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: Apply
     m_Metadata:
       m_Items: []
+  - m_Id: 1080828027351040
+    m_Localized: Press Esc to show cursor
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

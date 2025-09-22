@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
 using Shooter.Core;
 using Shooter.Damage;
@@ -20,6 +19,8 @@ namespace Shooter.Enemies.Core
 
         private bool canTakeDamage;
 
+        private Collider col;
+
         private NavMeshAgent agent;
         private Transform targetTransform;
         private float lastPathCalculateTime;
@@ -39,12 +40,18 @@ namespace Shooter.Enemies.Core
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
+            col = GetComponent<Collider>();
         }
 
         private void OnEnable()
         {
             animator.SetBool(IsAlive, true);
             canTakeDamage = true;
+            
+            if (col)
+            {
+                col.enabled = true;
+            }
         }
 
         private void Update()
@@ -103,7 +110,12 @@ namespace Shooter.Enemies.Core
         public async void Die()
         {
             canTakeDamage = false;
-            
+
+            if (col)
+            {
+                col.enabled = false;
+            }
+
             animator.SetBool(IsAlive, false);
             animator.SetTrigger(Killed);
 

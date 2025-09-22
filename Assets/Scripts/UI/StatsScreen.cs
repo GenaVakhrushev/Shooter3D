@@ -1,4 +1,5 @@
-﻿using Shooter.Player.Stats;
+﻿using Shooter.GameManagement;
+using Shooter.Player.Stats;
 using Shooter.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ namespace Shooter.UI
         [SerializeField] private Button applyButton;
 
         [Inject] private PlayerService playerService;
+        [Inject] private ShooterInputActions inputActions;
+        [Inject] private GameManager gameManager;
 
         private void Awake()
         {
@@ -25,6 +28,21 @@ namespace Shooter.UI
             
             applyButton.onClick.AddListener(Hide);
             applyButton.onClick.AddListener(statsViewModel.Submit);
+        }
+
+        protected override void OnShow()
+        {
+            base.OnShow();
+            
+            inputActions.Disable();
+        }
+
+        protected override void OnHide()
+        {
+            base.OnHide();
+            
+            inputActions.Enable();
+            gameManager.HideCursor();
         }
     }
 }

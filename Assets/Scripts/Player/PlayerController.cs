@@ -6,6 +6,7 @@ using Shooter.Player.Stats;
 using Shooter.Services;
 using Shooter.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -117,6 +118,11 @@ namespace Shooter.Player
 
         private void UseItemOnStarted(InputAction.CallbackContext context)
         {
+            if (EventSystemUtility.IsPointerOverGUIAction())
+            {
+                return;
+            }
+
             handController.StartUseItem();
         }
 
